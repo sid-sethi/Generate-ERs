@@ -2,6 +2,8 @@
 
 This `snakemake` pipeline identifies ERs from RNA-seq data (bigwig files) using the package [ODER](https://github.com/eolagbaju/ODER) (Optimise the Definition of Expressed Regions). The type of detected ERs is annotated by comparing to known annotation (from the provided Ensembl GTF), and the ERs are associated to their nearest gene. From this dataset, unannotated intergenic ERs within 10 kb of a protein-coding gene are selected.
 
+
+
 # Getting Started
 
 ## Input
