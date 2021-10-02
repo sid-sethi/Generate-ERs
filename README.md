@@ -1,15 +1,14 @@
 # Pipeline for generating expressed regions (ERs) and selecting optimal unannotated intergenic ERs
 
-This `snakemake` pipeline identifies ERs from RNA-seq data (bigwig files) using the package [ODER](https://github.com/eolagbaju/ODER) (Optimise the Definition of Expressed Regions). The type of detected ERs is annotated by comparing to known annotation (from the provided Ensembl GTF), and the ERs are associated to their nearest gene. From this dataset, unannotated intergenic ERs within 10 kb of a protein-coding gene are selected.
+This `snakemake` pipeline identifies ERs from RNA-seq data (bigwig files) using the package [ODER](https://github.com/eolagbaju/ODER) (Optimise the Definition of Expressed Regions). The type of detected ERs is annotated by comparing to known annotation (from the provided GTF), and the ERs are associated to their nearest gene. From this dataset, unannotated intergenic ERs within 10 kb of a protein-coding gene are selected.
 
 # Getting Started
 
 ## Input
 
 - Ensembl GTF annotation: http://ftp.ensembl.org/pub/current_gtf/homo_sapiens/
-- Aligned RNA-seq reads in bigwig format
- - Multiple RNA-seq replicates can be provided
- - Contig names should be UCSC style: chr1, chr2 .... chrM
+- Aligned RNA-seq reads in bigwig format. Multiple RNA-seq replicates can be provided. Please note that contig names in the bigwig should be UCSC style: chr1, chr2 .... chrM
+- chromosome lengths are required by the code. A file containing chromosome lengths for hg38 is provided in /data and is automatically used.
 
 ## Output
 
@@ -35,15 +34,22 @@ git clone --recursive https://github.com/sid-sethi/Generate-ERs.git
 
 ## Usage
 
-Edit `config.yml` to set the input genome, input fastq and parameters, then issue:
+Edit `config.yml` to set up the working directory and input files. snakemake command should be issued from within the pipeline directory.
 
 ```bash
+cd Generate-ERs
 snakemake --use-conda -j <num_cores> all
 ```
+If you provide more than one core, independent snakemake rules will be processed simultaneously. This pipeline only requires 2 cores at max. It is a good idea to do a dry run (using -n parameter) to view what would be done by the pipeline before executing the pipeline.
 
+```bash
+snakemake --use-conda -n all
+```
+Snakemake can be run to only install the required conda environments without running the full workflow. Subsequent runs with --use-conda will make use of the local environments without requiring internet access. This is suitable for running the pipeline offline.
 
-
-
+```bash
+snakemake --use-conda --conda-create-envs-only
+```
 
 ## Licence
 
