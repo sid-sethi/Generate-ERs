@@ -7,8 +7,8 @@ This `snakemake` pipeline identifies ERs from RNA-seq data (bigwig files) using 
 ## Input
 
 - Ensembl GTF annotation: http://ftp.ensembl.org/pub/current_gtf/homo_sapiens/
-- Aligned RNA-seq reads in bigwig format. Multiple RNA-seq replicates can be provided. Please note that contig names in the bigwig should be UCSC style: chr1, chr2 .... chrM
-- chromosome lengths are required by the code. A file containing chromosome lengths for hg38 is provided in /data and is automatically used.
+- Aligned RNA-seq reads in bigwig format. Multiple RNA-seq replicates can be provided. Please note that contig names in the bigwig should be Ensembl style: `1`, `2`.... `MT`.
+- chromosome lengths are required by the code. A file containing chromosome lengths for hg38 is provided in `/data` and is automatically used by the pipeline.
 
 ## Output
 
@@ -40,7 +40,7 @@ Edit `config.yml` to set up the working directory and input files. snakemake com
 cd Generate-ERs
 snakemake --use-conda -j <num_cores> all
 ```
-If you provide more than one core, independent snakemake rules will be processed simultaneously. This pipeline only requires 2 cores at max. It is a good idea to do a dry run (using -n parameter) to view what would be done by the pipeline before executing the pipeline.
+If you provide more than one core, independent snakemake rules will be processed simultaneously. This pipeline only uses 2 cores at most. It is a good idea to do a dry run (using -n parameter) to view what would be done by the pipeline before executing the pipeline.
 
 ```bash
 snakemake --use-conda -n all
